@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day!</title>
+    <style>
+        /* CSS Styles - Making it look pretty */
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ffb3c1;
+            --bg: #fff0f3;
+            --text: #590d22;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px 20px;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; }
+        p { font-size: 1.2rem; margin-top: 10px; }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* The Timer Section */
+        .timer-box {
+            background: white;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .count-up {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 10px;
+        }
+
+        /* Photo Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .photo-card {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .photo-card:hover { transform: scale(1.05); }
+
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        /* Love Letter Section */
+        .letter {
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border: 2px dashed var(--primary);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .heart-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .heart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.6);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Falling Hearts Animation */
+        .heart {
+            position: fixed;
+            top: -10vh;
+            color: var(--primary);
+            font-size: 20px;
+            animation: fall linear forwards;
+            z-index: 100;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Happy Valentine's Day!</h1>
+        <p>To my PT lay ❤️</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="timer-box">
+            <h2>We have been together for:</h2>
+            <div class="count-up" id="timer">Loading...</div>
+            <p>...and I've loved every second of it.</p>
+        </div>
+
+        <div class="gallery">
+            <div class="photo-card">
+                <img src="assets/first.JPG" alt="Memory 1">
+                <p>Our First Date</p>
+            </div>
+            <div class="photo-card">
+                <img src="assets/travel.jpg" alt="Memory 2">
+                <p>That Trip We Took</p>
+            </div>
+            <div class="photo-card">
+                <img src="assets/justus.JPG" alt="Memory 3">
+                <p>Just Us</p>
+            </div>
+        </div>
+
+        <div class="letter">
+            <h2>My Promise to You</h2>
+            <p>
+    From that first day on October 1st, 2022, until today, 
+    every moment has been magical. Happy Valentine's Day, my love!
+    Here's to our 4th year together and many more.
+</p>
+            <button class="heart-btn" onclick="celebrate()">I Love You! Click Me!</button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- CONFIGURATION: CHANGE THIS DATE ---
+        // Format: "YYYY-MM-DD"
+        const startDate = new Date("2022-10-01"); 
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("timer").innerText = 
+                `${days} Days, ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds`;
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        function celebrate() {
+            // Create falling hearts
+            for(let i = 0; i < 50; i++) {
+                createHeart();
+            }
+            alert("Happy Valentine's Day! You are the best thing that ever happened to me. ❤️");
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerText = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
